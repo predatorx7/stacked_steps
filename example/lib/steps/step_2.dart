@@ -53,7 +53,7 @@ class StepEmiAmountState extends State<StepEmiAmount> {
     super.didChangeDependencies();
     final newSize = MediaQuery.of(context).size;
     if (size?.width != newSize.width) {
-      final lastPage = controller.page;
+      final lastPage = controller.hasClients ? controller.page : null;
       controller.dispose();
       controller = PageController(
         initialPage: lastPage?.round() ?? controller.initialPage,
