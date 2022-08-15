@@ -30,3 +30,16 @@ A very simple example to demonstrate a sample usage of the stacked steps library
 ### Screenshots
 
 `/screenshots` directory
+
+![Stacked Steps | Step 1](https://raw.githubusercontent.com/predatorx7/stacked_steps/5097a4258e6736226fc6212a7ba3cb3a4fddb7ea/screenshots/step_1.png)
+
+![Stacked Steps | Step 2](https://raw.githubusercontent.com/predatorx7/stacked_steps/5097a4258e6736226fc6212a7ba3cb3a4fddb7ea/screenshots/step_2.png)
+
+![Stacked Steps | Step 3](https://raw.githubusercontent.com/predatorx7/stacked_steps/5097a4258e6736226fc6212a7ba3cb3a4fddb7ea/screenshots/step_3.png)
+
+![Stacked Steps | Step 4](https://raw.githubusercontent.com/predatorx7/stacked_steps/5097a4258e6736226fc6212a7ba3cb3a4fddb7ea/screenshots/step_4_idle.png)
+
+![Stacked Steps | loading on Step 4](https://raw.githubusercontent.com/predatorx7/stacked_steps/5097a4258e6736226fc6212a7ba3cb3a4fddb7ea/screenshots/step_4_loading.png)
+
+![Stacked Steps | Final Step](https://raw.githubusercontent.com/predatorx7/stacked_steps/5097a4258e6736226fc6212a7ba3cb3a4fddb7ea/screenshots/step_5_idle.png)
+
