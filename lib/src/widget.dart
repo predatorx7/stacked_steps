@@ -127,7 +127,8 @@ class _StackedStepsState<T, V> extends State<StackedSteps<T, V>> {
                 index: i,
                 length: progress.length,
                 onPressed: () {
-                  assert(controller.goBackAt(i));
+                  final didGoBack = controller.goBackAt(i);
+                  assert(didGoBack);
                 },
                 step: step,
                 builder: widget.completedStepBuilder,

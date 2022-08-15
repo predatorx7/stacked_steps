@@ -30,6 +30,7 @@ class StepKYCState extends State<StepKYC> {
     if (form?.validate() == true) {
       _isLoading.value = true;
       await Future.delayed(const Duration(seconds: 2));
+      if (!mounted) return;
       widget.controller.goNext(o.value);
       _isLoading.value = false;
     }
