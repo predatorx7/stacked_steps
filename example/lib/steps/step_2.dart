@@ -46,6 +46,23 @@ class StepEmiAmountState extends State<StepEmiAmount> {
     );
   }
 
+  Size? size;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final newSize = MediaQuery.of(context).size;
+    if (size?.width != newSize.width) {
+      final lastPage = controller.page;
+      controller.dispose();
+      controller = PageController(
+        initialPage: lastPage?.round() ?? controller.initialPage,
+        viewportFraction: ((1 / 2.3) * 570) / newSize.width,
+      );
+    }
+    size = newSize;
+  }
+
   @override
   void dispose() {
     controller.dispose();
@@ -91,7 +108,7 @@ class StepEmiAmountState extends State<StepEmiAmount> {
                         ),
                         child: ConstrainedBox(
                           constraints: const BoxConstraints(
-                            maxHeight: 250,
+                            maxHeight: 216,
                           ),
                           child: PageView.builder(
                             itemCount: plans.length,

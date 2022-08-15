@@ -42,21 +42,20 @@ class AnimatedAppearanceState extends State<AnimatedAppearance>
         curve: Curves.ease,
       ),
     );
-    _fadeIn = Tween(
-      begin: 0.6,
-      end: 1.0,
-    ).animate(
-      animation,
-    );
-    _scaleIn = Tween(
-      begin: 0.92,
-      end: 1.0,
-    ).animate(animation);
 
     startFadeInAnimation();
   }
 
   Future<void> startFadeInAnimation() async {
+    _fadeIn = Tween(
+      begin: 0.6,
+      end: 1.0,
+    ).animate(animation);
+    _scaleIn = Tween(
+      begin: 0.92,
+      end: 1.0,
+    ).animate(animation);
+
     try {
       await _controller.forward();
     } on TickerCanceled {
@@ -65,8 +64,18 @@ class AnimatedAppearanceState extends State<AnimatedAppearance>
   }
 
   Future<void> startFadeOutAnimation() async {
+    _fadeIn = Tween(
+      begin: 1.0,
+      end: 0.0,
+    ).animate(animation);
+    _scaleIn = Tween(
+      begin: 1.0,
+      end: 0.92,
+    ).animate(animation);
+
     try {
-      await _controller.reverse().orCancel;
+      _controller.reset();
+      await _controller.forward().orCancel;
     } on TickerCanceled {
       // the animation got canceled, probably because it was disposed of
     }
