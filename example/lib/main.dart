@@ -9,6 +9,7 @@ import 'steps/step_4.dart';
 import 'steps/steps.dart';
 import 'widgets/value.dart';
 
+/// A very simple example to demonstrate a sample usage of the stacked steps library.
 void main() {
   runApp(const MyApp());
 }
@@ -56,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisSpacing: 8.0,
           crossAxisSpacing: 8.0,
         ),
+        padding: const EdgeInsets.all(8.0),
         itemCount: options.length,
         itemBuilder: (context, index) {
           final option = options[index];

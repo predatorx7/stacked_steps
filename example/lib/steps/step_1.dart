@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
@@ -116,104 +118,116 @@ class _StepCreditAmountState extends State<StepCreditAmount> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  SleekCircularSlider(
-                                    initialValue: 1500000,
-                                    min: 10000,
-                                    max: 5000000,
-                                    appearance: CircularSliderAppearance(
-                                      size: 300,
-                                      startAngle: 270,
-                                      angleRange: 360,
-                                      customColors: CustomSliderColors(
-                                        progressBarColor: Theme.of(context)
-                                            .colorScheme
-                                            .inversePrimary,
-                                        trackColor: Colors.grey[200],
-                                        dotColor: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                        hideShadow: true,
-                                        shadowColor: Colors.transparent,
+                                  Builder(builder: (context) {
+                                    final media = MediaQuery.of(context);
+                                    final width = math.min<double>(
+                                      media.size.width - 100,
+                                      300.0,
+                                    );
+                                    return SleekCircularSlider(
+                                      initialValue: 1500000,
+                                      min: 10000,
+                                      max: 5000000,
+                                      appearance: CircularSliderAppearance(
+                                        size: width,
+                                        startAngle: 270,
+                                        angleRange: 360,
+                                        customColors: CustomSliderColors(
+                                          progressBarColor: Theme.of(context)
+                                              .colorScheme
+                                              .inversePrimary,
+                                          trackColor: Colors.grey[200],
+                                          dotColor: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                          hideShadow: true,
+                                          shadowColor: Colors.transparent,
+                                        ),
+                                        customWidths: CustomSliderWidths(
+                                          progressBarWidth: 12,
+                                          trackWidth: 12,
+                                          handlerSize: 16,
+                                        ),
                                       ),
-                                      customWidths: CustomSliderWidths(
-                                        progressBarWidth: 12,
-                                        trackWidth: 12,
-                                        handlerSize: 16,
-                                      ),
-                                    ),
-                                    onChange: (double value) {
-                                      final val = value.round();
-                                      o.value = o.value.copyWith(
-                                        creditAmount: val.toDouble(),
-                                      );
-                                      controller.text = CurrencyInputFormatter
-                                          .formatter
-                                          .format(value);
-                                    },
-                                    innerWidget: (value) {
-                                      return Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10.0),
+                                      onChange: (double value) {
+                                        final val = value.round();
+                                        o.value = o.value.copyWith(
+                                          creditAmount: val.toDouble(),
+                                        );
+                                        controller.text = CurrencyInputFormatter
+                                            .formatter
+                                            .format(value);
+                                      },
+                                      innerWidget: (value) {
+                                        return Center(
                                           child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 16.0,
-                                              vertical: 16.0,
-                                            ),
-                                            child: TextFormField(
-                                              controller: controller,
-                                              inputFormatters: [
-                                                FilteringTextInputFormatter
-                                                    .digitsOnly,
-                                                FilteringTextInputFormatter
-                                                    .singleLineFormatter,
-                                              ],
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              textInputAction:
-                                                  TextInputAction.next,
-                                              decoration: const InputDecoration(
-                                                prefixText: currency,
-                                                filled: false,
-                                                constraints:
-                                                    BoxConstraints.tightFor(
-                                                  width: 150,
-                                                ),
-                                                prefixStyle: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  decoration:
-                                                      TextDecoration.none,
-                                                  decorationStyle:
-                                                      TextDecorationStyle.solid,
-                                                ),
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                horizontal: 16.0,
+                                                vertical: 16.0,
                                               ),
-                                              textAlign: TextAlign.center,
-                                              onChanged: (val) {
-                                                final value =
-                                                    (double.tryParse(val))
-                                                            ?.round() ??
-                                                        5000;
-                                                o.value = o.value.copyWith(
-                                                  creditAmount:
-                                                      value.toDouble(),
-                                                );
-                                                controller.text =
-                                                    CurrencyInputFormatter
-                                                        .formatter
-                                                        .format(value);
-                                              },
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
+                                              child: TextFormField(
+                                                controller: controller,
+                                                inputFormatters: [
+                                                  FilteringTextInputFormatter
+                                                      .digitsOnly,
+                                                  FilteringTextInputFormatter
+                                                      .singleLineFormatter,
+                                                ],
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                textInputAction:
+                                                    TextInputAction.next,
                                                 decoration:
-                                                    TextDecoration.underline,
-                                                decorationStyle:
-                                                    TextDecorationStyle.dashed,
+                                                    const InputDecoration(
+                                                  prefixText: currency,
+                                                  filled: false,
+                                                  constraints:
+                                                      BoxConstraints.tightFor(
+                                                    width: 150,
+                                                  ),
+                                                  prefixStyle: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                    decorationStyle:
+                                                        TextDecorationStyle
+                                                            .solid,
+                                                  ),
+                                                ),
+                                                textAlign: TextAlign.center,
+                                                onChanged: (val) {
+                                                  final value =
+                                                      (double.tryParse(val))
+                                                              ?.round() ??
+                                                          5000;
+                                                  o.value = o.value.copyWith(
+                                                    creditAmount:
+                                                        value.toDouble(),
+                                                  );
+                                                  controller.text =
+                                                      CurrencyInputFormatter
+                                                          .formatter
+                                                          .format(value);
+                                                },
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                  decorationStyle:
+                                                      TextDecorationStyle
+                                                          .dashed,
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                  ),
+                                        );
+                                      },
+                                    );
+                                  }),
                                 ],
                               ),
                             ],

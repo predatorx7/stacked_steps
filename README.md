@@ -25,6 +25,7 @@ This package consists of widgets that can be used to compose a UI for displaying
 ### Example
 
 An minimal example is provided at `/example` directory.
+A very simple example to demonstrate a sample usage of the stacked steps library.
 
 ### Screenshots
 
