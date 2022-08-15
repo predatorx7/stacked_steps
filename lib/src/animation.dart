@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+/// A widget that animates its [child] when the state is initiated with
+/// fade-in and scale-in transition for representing the entry of the UI built by [child].
 class AnimatedAppearance extends StatefulWidget {
   const AnimatedAppearance({
     Key? key,

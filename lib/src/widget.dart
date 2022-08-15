@@ -24,7 +24,10 @@ typedef StepWidgetBuilder<T, V> = Widget Function(
 class StackedSteps<T, V> extends StatefulWidget {
   final StackedStepsController<T, V> controller;
 
-  /// The steps to use in the progress in order of entry. Atleast 2 steps must be provided where each step
+  /// The steps to use in the progress in order of entry i.e the first item is the first step and
+  /// the last item is the last or final step.
+  ///
+  /// Atleast 2 steps must be provided where each step
   /// will get the value from previous completed step from [StackedStepsController.value.latestValue].
   final List<StepData<T, V>>? steps;
 
