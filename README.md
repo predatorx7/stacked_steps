@@ -4,7 +4,7 @@ A widget that showcases progress through a succession of steps where successive 
 
 ### Description
 
-This package consists of widgets that can be used to compose a UI for displaying progress by stacking successive widgets over previous ones. 
+This package consists of widgets that can be used to compose a UI for displaying progress by stacking successive widgets over previous ones. Latest release available at https://github.com/predatorx7/stacked_steps/releases/latest
 
 #### 1. StackedStepsController
 
