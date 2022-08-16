@@ -124,7 +124,7 @@ class _ExampleScreenState extends State<ExampleScreen> {
   Widget build(BuildContext context) {
     final darkColor = Color.lerp(widget.option.color, Colors.black, 0.5)!;
 
-    final theme = CompletedTileThemeData.fallback().copyWith(
+    final theme = StackedStepsThemeData.fallback().copyWith(
       light: widget.option.color,
       dark: darkColor,
     );
@@ -149,7 +149,7 @@ class _ExampleScreenState extends State<ExampleScreen> {
       backgroundColor: darkColor,
       body: StackedSteps(
         controller: controller,
-        completedTileTheme: theme,
+        theme: theme,
         steps: [
           StepData<FormData, StepDetails>(
             value: const StepDetails(

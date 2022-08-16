@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class CurrencyInputFormatter extends TextInputFormatter {
-  static final formatter = NumberFormat('##,##0.00', 'en_IN');
+  static final formatter = NumberFormat('##,##,##,##', 'en_IN');
   static const currency = '₹';
 
   @override
@@ -14,7 +14,7 @@ class CurrencyInputFormatter extends TextInputFormatter {
       return newValue;
     }
 
-    double value = double.parse(newValue.text);
+    int value = int.tryParse(newValue.text.replaceAll(r'[^0-9]', '')) ?? 0;
 
     String newText = formatter.format(value).replaceAll(
           formatter.currencySymbol,

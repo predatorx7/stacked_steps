@@ -12,30 +12,36 @@ class TitleValue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final defaultStyle = DefaultTextStyle.of(context).style;
+
     return Text.rich(
       TextSpan(
         children: [
           TextSpan(
             text: title,
-            style: Theme.of(context).textTheme.caption,
+            style: Theme.of(context).textTheme.caption?.merge(defaultStyle),
           ),
           const TextSpan(
             text: '\n',
           ),
           TextSpan(
             text: value,
-            style: Theme.of(context).textTheme.titleLarge?.merge(
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge
+                ?.merge(
                   const TextStyle(
                     fontWeight: FontWeight.w700,
                   ),
-                ),
+                )
+                .merge(defaultStyle),
           ),
         ],
       ),
       textAlign: TextAlign.start,
       style: const TextStyle(
         color: Colors.white,
-      ),
+      ).merge(defaultStyle),
     );
   }
 }

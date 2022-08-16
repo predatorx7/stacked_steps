@@ -197,6 +197,7 @@ class _StepCreditAmountState extends State<StepCreditAmount> {
                                                         TextDecorationStyle
                                                             .solid,
                                                   ),
+                                                  border: InputBorder.none,
                                                 ),
                                                 textAlign: TextAlign.center,
                                                 onChanged: (val) {
@@ -208,10 +209,13 @@ class _StepCreditAmountState extends State<StepCreditAmount> {
                                                     creditAmount:
                                                         value.toDouble(),
                                                   );
+                                                },
+                                                onEditingComplete: () {
                                                   controller.text =
                                                       CurrencyInputFormatter
                                                           .formatter
-                                                          .format(value);
+                                                          .format(
+                                                              controller.text);
                                                 },
                                                 style: const TextStyle(
                                                   fontWeight: FontWeight.bold,

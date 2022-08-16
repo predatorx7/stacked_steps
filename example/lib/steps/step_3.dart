@@ -122,6 +122,9 @@ class BankTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isStyleDark =
+        StackedStepsTheme.of(context).brightness == Brightness.dark;
+
     return AnimatedBuilder(
       animation: controller,
       builder: (context, _) {
@@ -145,14 +148,14 @@ class BankTile extends StatelessWidget {
           title: Text(
             account.name,
             style: Theme.of(context).textTheme.caption?.copyWith(
-                  color: Colors.white,
+                  color: isStyleDark ? Colors.white : Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
           ),
           subtitle: Text(
             account.id.toString(),
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Colors.white70,
+                  color: isStyleDark ? Colors.white70 : Colors.black87,
                   fontWeight: FontWeight.bold,
                 ),
           ),
@@ -160,13 +163,13 @@ class BankTile extends StatelessWidget {
             duration: const Duration(milliseconds: 200),
             curve: Curves.ease,
             decoration: isSelected
-                ? const BoxDecoration(
-                    color: Colors.black26,
+                ? BoxDecoration(
+                    color: isStyleDark ? Colors.white24 : Colors.black26,
                     shape: BoxShape.circle,
                   )
                 : BoxDecoration(
                     border: Border.all(
-                      color: Colors.white54,
+                      color: isStyleDark ? Colors.white54 : Colors.black54,
                     ),
                     shape: BoxShape.circle,
                   ),
@@ -174,9 +177,9 @@ class BankTile extends StatelessWidget {
             width: 30,
             child: Center(
               child: isSelected
-                  ? const Icon(
+                  ? Icon(
                       Icons.check_rounded,
-                      color: Colors.white70,
+                      color: isStyleDark ? Colors.black54 : Colors.white70,
                     )
                   : const SizedBox(),
             ),

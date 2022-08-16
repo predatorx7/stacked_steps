@@ -35,14 +35,14 @@ class StackedSteps<T, V> extends StatefulWidget {
   ///
   /// If null, the default collapsed tile builder is used.
   final StepWidgetBuilder<T, V>? completedStepBuilder;
-  final CompletedTileThemeData? completedTileTheme;
+  final StackedStepsThemeData? theme;
 
   const StackedSteps({
     Key? key,
     required this.controller,
     this.steps,
     this.completedStepBuilder,
-    this.completedTileTheme,
+    this.theme,
   }) : super(key: key);
 
   @override
@@ -98,18 +98,33 @@ class _StackedStepsState<T, V> extends State<StackedSteps<T, V>> {
     Widget child = AnimatedBuilder(
       animation: controller,
       builder: (context, _) {
+        final currentIndex = controller.value.currentIndex;
         final current = controller.value.current;
         final next = controller.value.next;
         final lastValue = controller.value.latestValue;
         final progress = controller.value.progress;
 
-        Widget activeStage = AnimatedAppearance(
-          child: current.builder(
+        Widget activeStage = Builder(builder: (context) {
+          final theme = StackedStepsTheme.of(context);
+          final color = theme.colorBuilder(
             context,
-            lastValue,
-            current.value,
-          ),
-        );
+            currentIndex,
+            progress.length,
+            theme.light,
+            theme.dark,
+          );
+
+          return _DefaultTextColor(
+            surfaceColor: color,
+            child: AnimatedAppearance(
+              child: current.builder(
+                context,
+                lastValue,
+                current.value,
+              ),
+            ),
+          );
+        });
 
         if (next != null) {
           activeStage = WillPopScope(
@@ -144,9 +159,9 @@ class _StackedStepsState<T, V> extends State<StackedSteps<T, V>> {
       },
     );
 
-    final theme = widget.completedTileTheme;
+    final theme = widget.theme;
     if (theme != null) {
-      child = CompletedTileTheme(
+      child = StackedStepsTheme(
         data: theme,
         child: child,
       );
@@ -196,7 +211,7 @@ class CompletedTile<T, V> extends StatelessWidget {
       );
     }
 
-    final theme = CompletedTileTheme.of(context);
+    final theme = StackedStepsTheme.of(context);
 
     final color = theme.colorBuilder(
       context,
@@ -206,35 +221,71 @@ class CompletedTile<T, V> extends StatelessWidget {
       theme.dark,
     );
 
-    return AnimatedAppearance(
-      child: Material(
-        color: color,
-        elevation: theme.elevation,
-        borderRadius: theme.borderRadius,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Flexible(
-              flex: 0,
-              child: Builder(builder: (context) {
-                return GestureDetector(
-                  onTap: () async {
-                    final state = context
-                        .findAncestorStateOfType<AnimatedAppearanceState>();
-                    await state?.startFadeOutAnimation();
-                    onPressed();
+    return _DefaultTextColor(
+      surfaceColor: color,
+      child: AnimatedAppearance(
+        child: Material(
+          color: color,
+          elevation: theme.elevation,
+          borderRadius: theme.borderRadius,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                flex: 0,
+                child: Builder(
+                  builder: (context) {
+                    return GestureDetector(
+                      onTap: () async {
+                        final state = context
+                            .findAncestorStateOfType<AnimatedAppearanceState>();
+                        await state?.startFadeOutAnimation();
+                        onPressed();
+                      },
+                      child: ListTile(
+                        title: stepChild,
+                        trailing: const Icon(Icons.arrow_drop_down_rounded),
+                      ),
+                    );
                   },
-                  child: ListTile(
-                    title: stepChild,
-                    trailing: const Icon(Icons.arrow_drop_down_rounded),
-                  ),
-                );
-              }),
-            ),
-            Expanded(
-              child: nextChild,
-            ),
-          ],
+                ),
+              ),
+              Expanded(
+                child: nextChild,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _DefaultTextColor extends StatelessWidget {
+  const _DefaultTextColor({
+    Key? key,
+    required this.surfaceColor,
+    required this.child,
+  }) : super(key: key);
+
+  final Color surfaceColor;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = surfaceColor.computeLuminance() < 0.5 ? true : false;
+
+    return DefaultTextStyle.merge(
+      style: TextStyle(
+        color: isDark ? Colors.white : Colors.black,
+      ),
+      child: ListTileTheme.merge(
+        textColor: isDark ? Colors.white : Colors.black,
+        child: StackedStepsTheme(
+          data: StackedStepsTheme.of(context).copyWith(
+            brightness: isDark ? Brightness.dark : Brightness.light,
+          ),
+          child: child,
         ),
       ),
     );

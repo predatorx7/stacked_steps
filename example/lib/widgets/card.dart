@@ -13,7 +13,7 @@ class CurrentStepCard<T, V> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tileTheme = CompletedTileTheme.of(context);
+    final tileTheme = StackedStepsTheme.of(context);
     final index = controller.value.currentIndex;
     final length = controller.value.progress.length + 2;
 

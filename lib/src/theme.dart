@@ -8,17 +8,19 @@ typedef CompletedTileColorBuilder = Color Function(
   Color endColor,
 );
 
-class CompletedTileThemeData {
+class StackedStepsThemeData {
   final Color light;
   final Color dark;
+  final Brightness? brightness;
   final double elevation;
   final CompletedTileColorBuilder colorBuilder;
   final BorderRadiusGeometry? borderRadius;
 
-  CompletedTileThemeData({
+  StackedStepsThemeData({
     required this.light,
     required this.dark,
     this.colorBuilder = _defaultColorBuilder,
+    this.brightness,
     this.elevation = 2,
     this.borderRadius,
   });
@@ -37,8 +39,8 @@ class CompletedTileThemeData {
     )!;
   }
 
-  factory CompletedTileThemeData.fallback() {
-    return CompletedTileThemeData(
+  factory StackedStepsThemeData.fallback() {
+    return StackedStepsThemeData(
       light: Colors.grey,
       dark: Colors.grey.shade900,
       elevation: 2,
@@ -49,16 +51,18 @@ class CompletedTileThemeData {
     );
   }
 
-  CompletedTileThemeData copyWith({
+  StackedStepsThemeData copyWith({
     Color? light,
     Color? dark,
     double? elevation,
     CompletedTileColorBuilder? colorBuilder,
     BorderRadiusGeometry? borderRadius,
+    Brightness? brightness,
   }) {
-    return CompletedTileThemeData(
+    return StackedStepsThemeData(
       light: light ?? this.light,
       dark: dark ?? this.dark,
+      brightness: brightness ?? this.brightness,
       elevation: elevation ?? this.elevation,
       colorBuilder: colorBuilder ?? this.colorBuilder,
       borderRadius: borderRadius ?? this.borderRadius,
@@ -66,22 +70,22 @@ class CompletedTileThemeData {
   }
 }
 
-class CompletedTileTheme extends InheritedWidget {
-  const CompletedTileTheme({
+class StackedStepsTheme extends InheritedWidget {
+  const StackedStepsTheme({
     Key? key,
     required this.data,
     required Widget child,
   }) : super(key: key, child: child);
 
-  final CompletedTileThemeData data;
+  final StackedStepsThemeData data;
 
-  static CompletedTileThemeData of(BuildContext context) {
+  static StackedStepsThemeData of(BuildContext context) {
     final result =
-        context.dependOnInheritedWidgetOfExactType<CompletedTileTheme>();
-    return result?.data ?? CompletedTileThemeData.fallback();
+        context.dependOnInheritedWidgetOfExactType<StackedStepsTheme>();
+    return result?.data ?? StackedStepsThemeData.fallback();
   }
 
   @override
-  bool updateShouldNotify(CompletedTileTheme oldWidget) =>
+  bool updateShouldNotify(StackedStepsTheme oldWidget) =>
       data != oldWidget.data;
 }

@@ -13,7 +13,7 @@ class NextStepButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tileTheme = CompletedTileTheme.of(context);
+    final tileTheme = StackedStepsTheme.of(context);
 
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
